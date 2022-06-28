@@ -1,0 +1,17 @@
+GET http://127.0.0.1:3000/api
+
+###
+
+POST http://127.0.0.1:3000/api
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "answers": [
+    "AAAAAA",
+    "AAAAAA",
+    "AAAAAA",
+    "AAAAAA",
+    "AAAAAA"
+  ]
+}
