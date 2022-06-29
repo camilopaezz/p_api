@@ -29,7 +29,13 @@ app.use(express.json())
 app.use(morgan('dev'))
 
 app.get('/api/:id', async (req, res) => {
-  const answer = await Answer.findById(req.params.id)
+  const answer = await Answer.findOne({previus: req.params.id})
+
+  if (!answer) {
+    res.status(404).json({
+      error: 'Answer not found'
+    })
+  }
   
   res.json(answer)
 })
@@ -46,6 +52,6 @@ app.post('/api', async (req, res) => {
   res.json(savedAnswer)
 })
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log('Server is running')
 })
