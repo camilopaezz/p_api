@@ -28,7 +28,14 @@ const app = express()
 app.use(express.json())
 app.use(morgan('dev'))
 
+
+app.get('/api', async (_, res) => {
+  const answer = await Answer.findOne().sort({ field: 'asc', _id: -1 })
+  res.json(answer)
+})
+
 app.get('/api/:id', async (req, res) => {
+  console.log(req.params.id)
   const answer = await Answer.findOne({previus: req.params.id})
 
   if (!answer) {
@@ -37,11 +44,6 @@ app.get('/api/:id', async (req, res) => {
     })
   }
   
-  res.json(answer)
-})
-
-app.get('/api', async (_, res) => {
-  const answer = await Answer.findOne().sort({ field: 'asc', _id: -1 })
   res.json(answer)
 })
 
